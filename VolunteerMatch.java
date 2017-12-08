@@ -176,7 +176,41 @@ public class VolunteerMatch {
 		File inputFile = new File(filePath);
 		Scanner fileScn = new Scanner(inputFile);
 
-		//TODO: implement this to handle the menu items
+		while(fileScn.hasNext()){
+			String curr = fileScn.nextLine().trim();
+			
+			try{
+				if (curr.startsWith("v")){
+					String parts[] = curr.split(";");
+					String name = parts[1].trim();
+					
+					String[] dates = new String[parts.length-3];
+					for (int i=2; i<parts.length; i++){
+						dates[i-2] = parts[i].trim();
+					}
+					
+					manager.addVolunteer(name, dates);
+					
+				}
+				else if (curr.startsWith("e")){
+					String parts[] = curr.split(";");
+					String name = parts[1].trim();
+					String date = parts[2].trim();	
+					String limit = parts[3].trim();
+//					for (int i=4; i<parts.length; i++){
+//						this will handle the already matched volunteers in input lines
+//					}
+					manager.addEvent(name, date, limit); 
+				}
+			}catch(Exception e){
+				continue;
+			}
+		
+		}
+			
+		
+		
+	
 
 		
 		fileScn.close();
